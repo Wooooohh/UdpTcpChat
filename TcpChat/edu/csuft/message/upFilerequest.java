@@ -10,9 +10,9 @@ public class upFilerequest implements Transferable{
 		this.info=info;
 	}
 	
-	public upFilerequest(File file) {
+	public upFilerequest(String userid,File file) {
 	
-		info= file.getPath()+"."+file.length();
+		info= userid+"."+ file.length() +"."+file.getPath();
 	}
 	@Override
 	public byte getIdcode() {

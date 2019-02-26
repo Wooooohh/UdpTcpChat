@@ -75,7 +75,7 @@ public class ChatClient {
 					
 					if(f.exists())
 					{
-						msg=new upFilerequest(f);
+						msg=new upFilerequest(userid,f);
 						System.out.println(f.getPath());
 						out.write(msg);
 					}

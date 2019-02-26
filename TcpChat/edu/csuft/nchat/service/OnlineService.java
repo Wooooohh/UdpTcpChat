@@ -116,6 +116,9 @@ public class OnlineService implements Runnable {
 				
 				break;
 			case 7:
+				String info4 = msg.getMssage();
+				//String[] infos4 =info4.split("\\.");
+				System.out.println(info4+"上传文件成功");
 				break;
 			
 			}

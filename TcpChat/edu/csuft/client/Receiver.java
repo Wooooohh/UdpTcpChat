@@ -21,7 +21,10 @@ public class Receiver implements Runnable {
 		try {
 			while (true) {
 				Transferable msg = in.peek();
-				System.out.println(msg.getMssage());
+//				if(msg==null)
+//					System.out.println("null");
+//				else
+					System.out.println(msg.getMssage());
 			}
 		} catch (IOException e) {
 

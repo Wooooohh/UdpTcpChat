@@ -60,16 +60,23 @@ public class ChatInputStream {
 			case 7:
 				msg = gson.fromJson(new String(buff, 1, size - 1), upFilerequest.class);
 				receiveFile(msg.getMssage());
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			}
 		}
 		return msg;
 	}
 
-	public void receiveFile(String mssage) {
-		String[] fileinfo = mssage.split("\\.");
-		File file = new File(fileinfo[0]);
-
+	public void receiveFile(String message) {
+		String[] fileinfos = message.split("\\.");
+		System.out.println(message);
+		File file = new File(fileinfos[0]+fileinfos[1]+"."+fileinfos[3]);
+		System.out.println("文件接收成功");
 		try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
 			// 写入文件
 			int size;
@@ -77,7 +84,7 @@ public class ChatInputStream {
 				out.write(buff, 0, size);
 				out.flush();
 			}
-
+			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -55,7 +55,6 @@ public class ChatOutputStream {
 			break;
 		case 7:
 			b=gson.toJson(new upFilerequest(msg.getMssage())).getBytes();
-			transferfile(msg.getMssage());
 			break;
 		default:
 			break;
@@ -63,23 +62,25 @@ public class ChatOutputStream {
 		for(int i=0;i<b.length;i++) {
 			buff[i+1]=b[i];
 		}
-		
 		out.write(buff, 0,b.length+1);
+		if(buff[0]==7)
+			transferfile(msg.getMssage());
 	}
 	
 	public void transferfile(String mssage) {
 		String[] fileinfo = mssage.split("\\.");
-		File file = new File(fileinfo[0]);
+		File file = new File(fileinfo[2]+"."+fileinfo[3]);
 		try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))){
-			
+			byte[] buf= new byte[MaxBuff];
 			//SendPosAndMD5(out, file, file);
 			
 			//传输文件	
 			int size;
-			while(-1!=(size=in.read(buff))) {
-				out.write(buff,0,size);
+			while(-1!=(size=in.read(buf))) {
+				out.write(buf,0,size);
 				out.flush();
 			}
+			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
